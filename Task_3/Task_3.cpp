@@ -82,5 +82,7 @@ int main() {
 
 	arrSum("C", A, B, C);
 
+	cout << endl;
+	system("pause");
 	return 0;
 }
