@@ -4,29 +4,65 @@
 #include <vector>
 using namespace std;
 
-struct Expenses {
+class Expenses {
+private:
+	struct Info {
+		struct date {
+			int dd = 0, mm = 0, yyyy = 0;
+			//scanf("%d/%d/%d", &dd, &mm, &yyyy);
+		} date;
 
-	struct date {
-		int dd = 0, mm = 0, yyyy = 0;
-		//scanf("%d/%d/%d", &mm, &dd, &yyyy);
-	} date;
-	
-	int transport = 0;
 	int meal = 0;
+	int transport = 0;
 	int entertainment = 0;
 	int other = 0;
+	};
+
+vector <Info> allExpenses;
+
+public:
+	static void addExpense();
 };
 
-void addExpense() {
-	vector <int> expenseOfDay;
+void anotherExpense() {
+
+	char choice = ' ';
+
+	cout << "\nDo you want to add another expense? (y/n): ";
+	cin >> choice;
+	switch (choice) {
+	case 'y': Expenses::addExpense();
+		break;
+	case 'n': break;
+	default: break;
+	}
 }
 
-//void dailyReport() {}
+void Expenses::addExpense() {
+	
+	bool adding = true;
+	Info newExpense;
 
-//void weeklyRepot() {}
+	while (adding) {
+		cout << "Enter date of expense separated by \"/\": ";
+		scanf_s("%d/%d/%d", &newExpense.date.dd, &newExpense.date.mm, &newExpense.date.yyyy);
+		cout << "Amount spent on meals: ";
+		cin >> newExpense.meal;
+		cout << "Amount spent on transport: ";
+		cin >> newExpense.transport;
+		cout << "Amount spent on entertainment: ";
+		cin >> newExpense.entertainment;
+		cout << "Amount spent on other categories: ";
+		cin >> newExpense.other;
+		//cout << newExpense.date.dd << "/" << newExpense.date.mm << "/" << newExpense.date.yyyy;
+		adding = false;
+		allExpenses.push_back(newExpense);
+	}
+	anotherExpense();
+}
 
 int mainMenu() {
-
+	
 	int choice;
 
 	cout << "--------------------------------------------------------------------------------------";
@@ -53,18 +89,24 @@ int mainMenu() {
 	}
 }
 
+//void dailyReport() {}
+
+//void weeklyRepot() {}
+
+
+
 int main() {
 
-	vector <int> expenseOfDay;
+	
 
-	start:
+	
 	int choice;
-
+	start:
 	
 	choice = mainMenu();
 
 	switch (choice) {
-	case 1: cout << "adding expense";
+	case 1: Expenses::addExpense();
 		break;
 	case 2: cout << "daily expenses";
 		break;
