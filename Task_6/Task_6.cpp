@@ -61,6 +61,7 @@ void addExpense() {
 	allExpenses.push_back(newExpense);
 }
 
+//Function to make it easier to add multilpe expenses.
 bool anotherExpense() {
 
 	char choice = ' ';
@@ -126,7 +127,35 @@ void dailyReport() {
 	system("pause");
 }
 
-//void weeklyReport() {}
+void weeklyReport() {
+	sort(allExpenses.begin(), allExpenses.end(), compareByDate);
+
+	size_t amount = allExpenses.size();
+	float mealTotal = 0;
+	float transportTotal = 0;
+	float entertainmentTotal = 0;
+	float otherTotal = 0;
+	float weekTotal = 0;
+	for (int i = 0; i < amount ; i++) {
+		cout << "\nReport for week: ";
+		printDate(i);
+		cout << " - ";
+		cout << allExpenses[i].date[day] + 6 << "/" << allExpenses[i].date[month] << "/" << allExpenses[i].date[year];
+		cout << "\n----------------------------------";
+	
+		for (int j = allExpenses[i].date[day]; j <  + 5; j++) {
+
+		}
+		weekTotal = mealTotal + transportTotal + entertainmentTotal + otherTotal;
+		cout << "\nAmount spent on meals : $" << mealTotal;
+		cout << "\nAmount spent on transport: $" << transportTotal;
+		cout << "\nAmount spent on entertainment: $" << entertainmentTotal;
+		cout << "\nAmount spent in other categories: $" << otherTotal;
+		cout << "\nTotal Amount spent: $" << weekTotal;
+		cout << endl << endl;
+	}
+	system("pause");
+}
 
 
 
@@ -147,7 +176,7 @@ int main() {
 		break;
 	case 2: dailyReport();
 		break;
-	case 3: cout << "weekly expenses";
+	case 3: weeklyReport();
 		break;
 	case 4:  return 0;
 	default: break;
