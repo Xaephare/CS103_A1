@@ -6,12 +6,8 @@ using namespace std;
 
 //Declare struct containing all necessary information.
 	struct Info {
-		//structure within the main structure to contain the date.
-		struct Date {
-			int dd = 0, mm = 0, yyyy = 0;
-			//scanf("%d/%d/%d", &dd, &mm, &yyyy) personal note to remember the scanf format.
-		} date;
-
+	
+	int date[3];
 	float meal = 0;
 	float transport = 0;
 	float entertainment = 0;
@@ -20,10 +16,11 @@ using namespace std;
 
 //Declare a vector that holds the struct(s).
 vector <Info> allExpenses;
+enum {day, month, year};
 
 //Because why not, functions are fun. prints out the date of the date struct from the vector @ index#.
 void printDate(int index) {
-	cout << allExpenses[index].date.dd << "/" << allExpenses[index].date.mm << "/" << allExpenses[index].date.yyyy;
+	cout << allExpenses[index].date[day] << "/" << allExpenses[index].date[month] << "/" << allExpenses[index].date[year];
 }
 
 //Function to sort vector order by date, makes things easier comprehend.
@@ -38,12 +35,12 @@ void addExpense() {
 	cout << "Enter date of expense separated by \"/\" (eg. dd/mm/yyyy): ";
 		
 	//Format scan just for fun/better readability.
-	scanf_s("%d/%d/%d", &newExpense.date.dd, &newExpense.date.mm, &newExpense.date.yyyy);
+	scanf_s("%d/%d/%d", &newExpense.date[day], &newExpense.date[month], &newExpense.date[year]);
 
 	//Check for real dates.
-	while (newExpense.date.dd > 31 || newExpense.date.mm > 12 || newExpense.date.yyyy > 9999) {
+	while (newExpense.date[day] > 31 || newExpense.date[month] > 12 || newExpense.date[year] > 9999) {
 		cout << "Enter a real date, try again: ";
-		scanf_s("%d/%d/%d", &newExpense.date.dd, &newExpense.date.mm, &newExpense.date.yyyy);
+		scanf_s("%d/%d/%d", &newExpense.date[day], &newExpense.date[month], &newExpense.date[year]);
 		}
 
 	//Amounts spent.
