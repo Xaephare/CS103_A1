@@ -4,8 +4,7 @@
 #include <vector>
 using namespace std;
 
-class Expenses {
-private:
+
 	struct Info {
 		struct date {
 			int dd = 0, mm = 0, yyyy = 0;
@@ -20,25 +19,10 @@ private:
 
 vector <Info> allExpenses;
 
-public:
-	static void addExpense();
-};
 
-void anotherExpense() {
 
-	char choice = ' ';
 
-	cout << "\nDo you want to add another expense? (y/n): ";
-	cin >> choice;
-	switch (choice) {
-	case 'y': Expenses::addExpense();
-		break;
-	case 'n': break;
-	default: break;
-	}
-}
-
-void Expenses::addExpense() {
+void addExpense() {
 	
 	bool adding = true;
 	Info newExpense;
@@ -58,7 +42,22 @@ void Expenses::addExpense() {
 		adding = false;
 		allExpenses.push_back(newExpense);
 	}
-	anotherExpense();
+}
+
+bool anotherExpense() {
+
+	char choice = ' ';
+
+	cout << "\nDo you want to add another expense? (y/n): ";
+	cin >> choice;
+	switch (choice) {
+	case 'y': return true;
+		break;
+	case 'n': return false;
+		break;
+	default: return false;
+		break;
+	}
 }
 
 int mainMenu() {
@@ -101,12 +100,16 @@ int main() {
 
 	
 	int choice;
+	bool another = true;
 	start:
 	
 	choice = mainMenu();
 
 	switch (choice) {
-	case 1: Expenses::addExpense();
+	case 1: while (another) {
+		addExpense();
+		another = anotherExpense();
+		}
 		break;
 	case 2: cout << "daily expenses";
 		break;
