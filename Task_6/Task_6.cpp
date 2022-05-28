@@ -2,12 +2,12 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm> //This is to sort the vector
 using namespace std;
 
 //Declare struct containing all necessary information.
 	struct Info {
-	
-	int date[3];
+	int date[3] = {0, 0, 0};
 	float meal = 0;
 	float transport = 0;
 	float entertainment = 0;
@@ -25,8 +25,13 @@ void printDate(int index) {
 
 //Function to sort vector order by date, makes things easier comprehend.
 bool compareByDate(const Info &a, const Info &b) {
-	return true;
+	if (a.date[year] < b.date[year]) return true;
+	if (a.date[year] == b.date[year] && a.date[month] < b.date[month]) return true;
+	if (a.date[year] == b.date[year] && a.date[month] == b.date[month] && a.date[day] < b.date[day]) return true;
+	else return false;
 }
+
+
 
 void addExpense() {
 	
@@ -61,13 +66,15 @@ bool anotherExpense() {
 	char choice = ' ';
 
 	cout << "\nDo you want to add another expense? (y/n): ";
+	start:
 	cin >> choice;
 	switch (choice) {
 	case 'y': return true;
 		break;
 	case 'n': return false;
 		break;
-	default: return false;
+	default: cout << "Try again yes \"y\" or no \"n\": ";
+		goto start;
 		break;
 	}
 }
@@ -102,7 +109,9 @@ int mainMenu() {
 
 void dailyReport() {
 
-	int amount = allExpenses.size();
+	sort(allExpenses.begin(), allExpenses.end(), compareByDate);
+
+	size_t amount = allExpenses.size();
 	for (int i = 0; i < amount; i++) {
 		cout << "\nReport for date: "; 
 		printDate(i);
