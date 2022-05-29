@@ -1,4 +1,4 @@
-//Louis Ulysse Grace - Section B - Question 4
+﻿//Louis Ulysse Grace - Section B - Question 4
 
 
 #include <iostream>
@@ -8,6 +8,7 @@ void line() {
     cout << "\n--------------------------------------------------------------";
 }
 
+//All void functions created to easily draw the man.
 void hangman() {
     cout << "\n   _____\n";
     cout << "  |     |\n";
@@ -27,6 +28,7 @@ void walkman() {
     cout << "/ \\\n";
 }
 
+//What's he hanging from? ಠ_ಠ
 void invertman() {
     cout << "\n   _____\n";
     cout << "  |     |\n";
@@ -39,6 +41,7 @@ void invertman() {
     cout << "----- ";
 }
 
+//Game, take in char and checks it against the real answer.
 bool play() {
 
     char answer;
@@ -64,8 +67,11 @@ int main()
     cout << "Welcome to hangman. This game is to check your spelling skill.";
     line();
     hangman();
+
+    //Play function returns boolean
     result = play();
 
+    //If your answer is correct then the man walks, otherwise he is hung.
     if (result == true) {
         cout << "\nYour guess is correct!";
         walkman();

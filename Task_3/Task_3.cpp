@@ -5,6 +5,7 @@
 #include <string>
 using namespace std;
 
+//Inputs values into a 3x3 matrix
 void arrInput(string arrId, int array[3][3]) {
 
 	int counter = 1;
@@ -20,6 +21,8 @@ void arrInput(string arrId, int array[3][3]) {
 
 }
 
+//Takes in two filled 3x3 matrices and sums each index value into the relevant index of a third matrix.
+//It then multiplies the third matrix values by 3, displaying everything along the way
 void arrSum(string arrId, int arrayA[3][3], int arrayB[3][3], int arrayC[3][3]) {
 
 	for (int i = 0; i < 3; i++) {
@@ -50,6 +53,7 @@ void arrSum(string arrId, int arrayA[3][3], int arrayB[3][3], int arrayC[3][3]) 
 
 }
 
+//Prints array.
 void arrOutput(string arrId, int array[3][3]) {
 
 	cout << "\nArray " << arrId << ": ";

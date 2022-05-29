@@ -47,6 +47,7 @@ void square() {
 	cout << "\n*******";
 }
 
+//Function takes in width and height arguments to draw rectangle.
 void rectangle(int height, int width) {
 	for (int i = 0; i < height ; i++) {
 		cout << endl;
@@ -56,6 +57,7 @@ void rectangle(int height, int width) {
 	}
 }
 
+//Function randomly picks which shape to generate and then sets the correct answer.
 char game() {
 	char realAnswer;
 	int shape = 0;
@@ -87,6 +89,7 @@ char choices() {
 	cout << "\n\nAnswer: ";
 	cin >> userAnswer;
 
+	//Check to make sure answer is legal.
 	while (userAnswer > 'd') {
 		cout << "Try again: ";
 		cin >> userAnswer;
@@ -112,6 +115,7 @@ int main() {
 	char userAnswer = ' ';
 	char realAnswer = ' ';
 
+	//Loop that runs while playing is true. menu function returns boolean based on your choice (play/exit).
 	while (playing) {
 		realAnswer = game();
 		userAnswer = choices();

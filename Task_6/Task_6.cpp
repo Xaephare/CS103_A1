@@ -1,5 +1,10 @@
 //Louis Ulysse Grace - Section B - Question 6
 
+/*
+Sadly did not have enought time to get done everything i wanted to achieve.
+This is the last running iteration before i broke everything for the 40th time to rebuild it better.
+*/
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
