@@ -3,11 +3,18 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <ctime>
 using namespace std;
 
 //Declare struct containing all necessary information.
 	struct Info {
-	int date[3] = {0, 0, 0};
+
+		struct Date {
+			int tm_mday = 1;
+			int tm_mon = 0;
+			int tm_year = 1900;
+		}date;
+
 	float meal = 0;
 	float transport = 0;
 	float entertainment = 0;
@@ -16,22 +23,19 @@ using namespace std;
 
 //Declare a vector that holds the struct(s).
 vector <Info> allExpenses;
-enum {day, month, year};
 
 //Because why not, functions are fun. prints out the date of the date struct from the vector @ index#.
-void printDate(int index) {
-	cout << allExpenses[index].date[day] << "/" << allExpenses[index].date[month] << "/" << allExpenses[index].date[year];
+void printDate(size_t index) {
+	cout << allExpenses[index].date.tm_mday << "/" << allExpenses[index].date.tm_mon << "/" << allExpenses[index].date.tm_year;
 }
 
 //Function to sort vector order by date, makes things easier comprehend.
 bool compareByDate(const Info &a, const Info &b) {
-	if (a.date[year] < b.date[year]) return true;
-	if (a.date[year] == b.date[year] && a.date[month] < b.date[month]) return true;
-	if (a.date[year] == b.date[year] && a.date[month] == b.date[month] && a.date[day] < b.date[day]) return true;
+	if (a.date.tm_year < b.date.tm_year) return true;
+	if (a.date.tm_year == b.date.tm_year && a.date.tm_mon < b.date.tm_mon) return true;
+	if (a.date.tm_year == b.date.tm_year && a.date.tm_mon == b.date.tm_mon && a.date.tm_mday < b.date.tm_mday) return true;
 	else return false;
 }
-
-
 
 void addExpense() {
 	
@@ -40,12 +44,12 @@ void addExpense() {
 	cout << "Enter date of expense separated by \"/\" (eg. dd/mm/yyyy): ";
 		
 	//Format scan just for fun/better readability.
-	scanf_s("%d/%d/%d", &newExpense.date[day], &newExpense.date[month], &newExpense.date[year]);
+	scanf_s("%d/%d/%d", &newExpense.date.tm_mday, &newExpense.date.tm_mon, &newExpense.date.tm_year);
 
 	//Check for real dates.
-	while (newExpense.date[day] > 31 || newExpense.date[month] > 12 || newExpense.date[year] > 9999) {
+	while (newExpense.date.tm_mday > 31 || newExpense.date.tm_mon > 12 || newExpense.date.tm_year > 9999) {
 		cout << "Enter a real date, try again: ";
-		scanf_s("%d/%d/%d", &newExpense.date[day], &newExpense.date[month], &newExpense.date[year]);
+		scanf_s("%d/%d/%d", &newExpense.date.tm_mday, &newExpense.date.tm_mon, &newExpense.date.tm_year);
 		}
 
 	//Amounts spent.
@@ -87,7 +91,6 @@ int mainMenu() {
 	cout << "--------------------------------------------------------------------------------------";
 	cout << "\nPersonal expenses tracking system.";
 	cout << "\n-------------------------";
-
 	cout << "\n1 - Add new expense";
 	cout << "\n2 - View daily expenses";
 	cout << "\n3 - View weekly expenses";
@@ -128,6 +131,7 @@ void dailyReport() {
 }
 
 void weeklyReport() {
+
 	sort(allExpenses.begin(), allExpenses.end(), compareByDate);
 
 	Info spacer;
@@ -138,8 +142,7 @@ void weeklyReport() {
 	float otherTotal = 0;
 	float weekTotal = 0;
 
-//Expand vector to multiple of 7 (1-week) to avoid access violation.
-		
+//Expand vector to multiple of 7 (1-week) to avoid access violation.	
 	for (size_t v = 0; v < (6 - amount); v++) {
 		allExpenses.push_back(spacer);
 	}
@@ -158,7 +161,6 @@ void weeklyReport() {
 			
 		
 		}
-
 		weekTotal = (mealTotal + transportTotal + entertainmentTotal + otherTotal);
 		cout << "\nAmount spent on meals : $" << mealTotal;
 		cout << "\nAmount spent on transport: $" << transportTotal;
@@ -175,13 +177,10 @@ void weeklyReport() {
 	system("pause");
 }
 
-
-
 int main() {
 	
 	int choice;
 	bool another;
-
 
 	start:
 	choice = mainMenu();
@@ -200,8 +199,6 @@ int main() {
 	default: break;
 	}
 	goto start;
-
-
 
 	return 0;
 }
