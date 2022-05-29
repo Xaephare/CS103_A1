@@ -166,10 +166,6 @@ void weeklyReport() {
 		cout << "\nAmount spent in other categories: $" << otherTotal;
 		cout << "\nTotal Amount spent: $" << weekTotal;
 		cout << endl << endl;
-
-		
-
-		
 	}
 
 	//Contract vector back to original size.
