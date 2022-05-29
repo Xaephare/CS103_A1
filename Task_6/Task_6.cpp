@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm> //This is to sort the vector
+#include <algorithm>
 using namespace std;
 
 //Declare struct containing all necessary information.
@@ -113,7 +113,7 @@ void dailyReport() {
 	sort(allExpenses.begin(), allExpenses.end(), compareByDate);
 
 	size_t amount = allExpenses.size();
-	for (int i = 0; i < amount; i++) {
+	for (size_t i = 0; i < amount; i++) {
 		cout << "\nReport for date: "; 
 		printDate(i);
 		cout << "\n----------------------------------";
@@ -130,29 +130,51 @@ void dailyReport() {
 void weeklyReport() {
 	sort(allExpenses.begin(), allExpenses.end(), compareByDate);
 
-	size_t amount = allExpenses.size();
+	Info spacer;
+	const size_t amount = allExpenses.size();
 	float mealTotal = 0;
 	float transportTotal = 0;
 	float entertainmentTotal = 0;
 	float otherTotal = 0;
 	float weekTotal = 0;
-	for (int i = 0; i < amount ; i++) {
-		cout << "\nReport for week: ";
+
+//Expand vector to multiple of 7 (1-week) to avoid access violation.
+		
+	for (size_t v = 0; v < (6 - amount); v++) {
+		allExpenses.push_back(spacer);
+	}
+
+	for (size_t i = 0; i < amount ; (i += 6)) {
+		
+		cout << "\nReport for week starting: ";
 		printDate(i);
-		cout << " - ";
-		cout << allExpenses[i].date[day] + 6 << "/" << allExpenses[i].date[month] << "/" << allExpenses[i].date[year];
 		cout << "\n----------------------------------";
 	
-		for (int j = allExpenses[i].date[day]; j <  + 5; j++) {
-
+		for (size_t j = i; j < (i + 5); j++) {
+			mealTotal += allExpenses[j].meal;
+			transportTotal += allExpenses[j].transport;
+			entertainmentTotal += allExpenses[j].entertainment;
+			otherTotal += allExpenses[j].other;
+			
+		
 		}
-		weekTotal = mealTotal + transportTotal + entertainmentTotal + otherTotal;
+
+		weekTotal = (mealTotal + transportTotal + entertainmentTotal + otherTotal);
 		cout << "\nAmount spent on meals : $" << mealTotal;
 		cout << "\nAmount spent on transport: $" << transportTotal;
 		cout << "\nAmount spent on entertainment: $" << entertainmentTotal;
 		cout << "\nAmount spent in other categories: $" << otherTotal;
 		cout << "\nTotal Amount spent: $" << weekTotal;
 		cout << endl << endl;
+
+		
+
+		
+	}
+
+	//Contract vector back to original size.
+	for (size_t v = 0; v < (6 - amount); v++) {
+		allExpenses.pop_back();
 	}
 	system("pause");
 }
